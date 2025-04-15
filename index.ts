@@ -125,6 +125,63 @@ const MAPS_TOOLS: Tool[] = [
       required: ["file", "rljN"],
     },
   },
+  {
+    name:"queryBillByMonth",
+    description:"按月份查询工资条信息（可以查询到的数据 工资条名称、已发送数量、已查看数量 、已确认梳理 ）",
+    inputSchema:{
+      type: "object",
+      properties: {
+        rljN: {
+          type: "string",
+          description: "登录token",
+        } , billMonth: {
+          type: "string",
+          description: "工资条月份（格式：YYYY-MM)",
+        },pageSize:{
+          type:"string",
+          description:"分页数量 默认为 5",
+        },startId:{
+          type:"string",
+          description:"查询的起始位置 上一个列表结果的中最后一个数据的 id",
+        }
+    }
+  }
+},
+{
+  name:"根据人员、部门、发送状态、查看状态、确认状态、筛选工资条详情中的数据 ",
+  description:"",
+  inputSchema:{
+    type: "object",
+    roperties: {
+      rljN: {
+        type: "string",
+        description: "登录token",
+      },billMonth:{
+        type:"string",
+        description: "工资条月份（格式：YYYY-MM)",
+      },billSource:{
+        type:"string",
+        description: "0-薪资计算，1-excel导入",
+      },search:{
+        type:"string",
+        description:"按姓名、工号、职位筛选"
+      },sendStatus:{
+        type:"string",
+        description:"工资条发送状态，逗号隔开 0 未发送 、1 已发送、 2 已撤回"
+      },readStatus:{
+        type:"string",
+        description:"工资条查看状态，逗号隔开  0 未读、1 已读"
+      },confirmStatus:{
+        type:"string",
+        description:"工资条确认状态，逗号隔开 0 未读 1 已读"
+      },salaryGroupId:{
+        type:"string",
+        description:"薪资组salarygroupid或者excel导入的billformid"
+      },
+    }
+  }
+
+},
 ] as const;
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
@@ -274,6 +331,47 @@ const handleSaveBill = async (
   const data: any = await response.json();
   return data;
 };
+// 查询工资条列表 
+const handleQueryBillByMonth =async(params:any)=>{
+  const response=await fetch(
+    "https://daily-payslip.renlijia.com/rest/api/v2/salaryBill/sendSalaryBill",
+    {
+      method:"post",
+      headers:{
+        "rlj-n":params.rljN,
+      },
+      body:JSON.stringify(params),
+    }
+  );
+  const data:any=await response.json;
+
+  return {
+    content: formatContent(data.result, data.success),
+    isError: !data.success,
+  }
+};
+
+// 筛选工资条详情中的员工
+const querySalaryBillByPage=async(params:any)=>{
+  const response=await fetch(
+    "https://daily-payslip.renlijia.com/rest/api/v2/salaryBill/sendSalaryBill",
+    {
+      method:"post",
+      headers:{
+        "rlj-n":params.rljN,
+      },
+      body:JSON.stringify(params),
+    }
+  );
+  const  data:any = await response.json;
+  return {
+    content: formatContent2(data.result,data.success),
+    isError: !data.success,
+  }
+
+}
+
+
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
@@ -321,3 +419,51 @@ runServer().catch((error) => {
   console.error("Fatal error running server:", error);
   process.exit(1);
 });
+
+// 辅助函数：将数据格式化为前端需要的文本内容
+function formatContent(result:any, isSuccess:boolean) {
+  const contents = [];
+
+  if (!isSuccess) {
+    // 接口失败时，显示错误信息（假设 data 中有 error 字段）
+    contents.push({
+      type: "text",
+      text: "操作失败，请检查参数或联系管理员",
+    });
+  } else {
+    // 遍历 result 数组，为每个工资条生成文本
+    result.forEach((item: any)  => {
+      contents.push({
+        type: "text",
+        text: `工资条Id【${item.id}】工资条名称【${item.salaryBillName}】，总人数：${item.allUserNum} 已发送人数：${item.sentUserNum}， 已查看人数：${item.readUserNum}， 薪酬 salaryBillId:${item.salaryBillId}`,
+      });
+    });
+  }
+
+  return contents;
+}
+
+// 辅助函数：将数据格式化为前端需要的文本内容
+function formatContent2(result:any, isSuccess:boolean) {
+  const contents = [];
+
+  if (!isSuccess) {
+    // 接口失败时，显示错误信息（假设 data 中有 error 字段）
+    contents.push({
+      type: "text",
+      text: "操作失败，请检查参数或联系管理员",
+    });
+  } else {
+    // 遍历 result 数组，为每个工资条生成文本
+    result.data.forEach((item: any)  => {
+      contents.push({
+        type: "text",
+        text: `员工id【${item.userId}】员工姓名【${item.userName},发送时间 ${item.readTime} 部门${item.deptName}`,
+      });
+    });
+  }
+
+  return contents;
+}
+
+
