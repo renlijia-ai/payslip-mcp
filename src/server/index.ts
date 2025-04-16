@@ -11,7 +11,6 @@ export const switchApi = async (request: CallToolRequest) => {
     case "payslip_send_bill": {
       response = await client.post("v2/salaryBill/sendSalaryBill", {
         ...params,
-        allFlag: 0,
         billSource: "1",
       });
       break;
@@ -72,6 +71,20 @@ export const switchApi = async (request: CallToolRequest) => {
         page: 1,
         deptIds: "",
         userIds: "",
+        billSource: "1",
+      });
+      break;
+    }
+    case "payslip_revoke_bill": {
+      response = await client.post("v2/salaryBill/revokeSalaryBill", {
+        ...params,
+        billSource: "1",
+      });
+      break;
+    }
+    case "payslip_delete_bill": {
+      response = await client.post("v1/salaryBill/deleteSalaryBill4Excel", {
+        ...params,
         billSource: "1",
       });
       break;
