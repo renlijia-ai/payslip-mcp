@@ -433,4 +433,59 @@ export const MAPS_TOOLS = [
             },
         }, ["salaryGroupId", "billMonth"]),
     },
+    {
+        name: "payslip_revoke_bill",
+        description: `撤回工资条
+    返回值 { rid: "请求id", success: true }
+    如果success为true, 则表示撤回成功`,
+        inputSchema: getInputSchema({
+            allFlag: {
+                type: "string",
+                description: "是否撤回全部工资条 0-否 1-是",
+                enum: [0, 1],
+            },
+            billMonth: {
+                type: "string",
+                description: "工资条月份,格式:YYYY-MM, 例如2025-03",
+            },
+            billSource: {
+                type: "string",
+                description: "工资条来源 0-薪资计算 1-excel导入",
+                enum: ["1"],
+            },
+            salaryGroupId: {
+                type: "string",
+                description: "工资条id",
+            },
+            cacheKey: {
+                type: "string",
+                description: "工资条缓存key, 撤回全部工资条的时候, 传此参数, 参数来源为querySalaryBillByPage接口返回的cacheKey缓存key, 该缓存key包含了所有员工信息, 在全部发送,全部撤回时需要使用",
+            },
+            userId: {
+                type: "string",
+                description: "员工id, 发送全部工资条的时候, 无需传此参数",
+            },
+        }, ["billMonth", "salaryGroupId"]),
+    },
+    {
+        name: "payslip_delete_bill",
+        description: `删除工资条
+    返回值 { rid: "请求id", success: true }
+    如果success为true, 则表示删除成功`,
+        inputSchema: getInputSchema({
+            billMonth: {
+                type: "string",
+                description: "工资条月份,格式:YYYY-MM, 例如2025-03",
+            },
+            billSource: {
+                type: "string",
+                description: "工资条来源 0-薪资计算 1-excel导入",
+                enum: ["1"],
+            },
+            salaryGroupId: {
+                type: "string",
+                description: "工资条id",
+            },
+        }, ["billMonth", "salaryGroupId"]),
+    },
 ];
