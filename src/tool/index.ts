@@ -305,7 +305,7 @@ export const MAPS_TOOLS: Tool[] = [
   },
   {
     name: "payslip_get_bill_detail",
-    description: `根据人员、部门、发送状态、查看状态、确认状态、筛选工资条详情中的员工信息, 工资条信息
+    description: `根据人员、部门、发送状态、查看状态、确认状态、筛选 查询工资条详情中的，可以知道 员工信息(姓名、员工状态、部门), 工资条信息（实发金额、发送状态、查看状态 、确认状态）
       返回结果
       {
         "type": "object",
