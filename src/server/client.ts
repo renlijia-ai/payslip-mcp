@@ -1,5 +1,4 @@
 import { rljN_const } from "../constants/index.js";
-import { formatContent, formatContent2 } from "./utils.js";
 
 // 总方法
 export class Client {
