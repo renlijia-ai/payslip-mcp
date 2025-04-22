@@ -124,7 +124,7 @@ export const MAPS_TOOLS = [
             },
             billSource: {
                 type: "string",
-                description: "工资条来源 0-薪资计算 1-excel导入",
+                description: "工资条来源 1-excel导入",
                 enum: ["1"],
             },
             salaryGroupId: {
