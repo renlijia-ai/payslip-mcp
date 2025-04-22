@@ -16,6 +16,98 @@ const getInputSchema = (properties, required) => {
 };
 export const MAPS_TOOLS = [
     {
+        name: "payslip_get_sheet_name",
+        description: `获取工资条excel的sheet名称
+    返回值
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "0": {
+              "type": "string",
+              "description": "工资条excel的第一个sheet的名称"
+            },
+            "1": {
+              "type": "string",
+              "description": "工资条excel的第二个sheet的名称"
+            },
+          }
+        },
+        "rid": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    }
+    `,
+        inputSchema: getInputSchema({
+            file: {
+                type: "string",
+                description: "excel文件的oss地址",
+            },
+        }, ["file"]),
+    },
+    {
+        name: "payslip_query_match_type_info",
+        description: `获取工资条excel中可以用来匹配的列
+    返回值
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "matchTypeMap": {
+              "type": "object",
+              "required": [],
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "description": "员工UserID"
+                },
+                "jobNumber": {
+                  "type": "string",
+                  "description": "工号"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "姓名"
+                }
+              }
+            }
+          }
+        },
+        "rid": {
+          "type": "string",
+          "description": "请求id",
+        },
+        "success": {
+          "type": "boolean",
+          "description": "是否成功",
+        }
+      }
+    }
+    `,
+        inputSchema: getInputSchema({
+            file: {
+                type: "string",
+                description: "excel文件的oss地址",
+            },
+            sheetNumber: {
+                type: "string",
+                description: "工资条模板所在的sheet页",
+            },
+        }, ["file"]),
+    },
+    {
         name: "payslip_send_bill",
         description: `发送工资条
     返回值 { rid: "请求id", success: true }
