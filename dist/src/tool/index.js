@@ -45,6 +45,7 @@ export const MAPS_TOOLS = [
         }
       }
     }
+    如果返回了多个excel sheet, 需要确定使用第几个excel sheet, 否则直接调用payslip_query_match_type_info
     `,
         inputSchema: getInputSchema({
             file: {
@@ -104,46 +105,13 @@ export const MAPS_TOOLS = [
             sheetNumber: {
                 type: "string",
                 description: "工资条模板所在的sheet页",
+                default: "0",
             },
         }, ["file"]),
     },
     {
-        name: "payslip_send_bill",
-        description: `发送工资条
-    返回值 { rid: "请求id", success: true }
-    如果success为true, 则表示发送成功`,
-        inputSchema: getInputSchema({
-            allFlag: {
-                type: "string",
-                description: "是否发送全部工资条 0-否 1-是",
-                enum: [0, 1],
-            },
-            billMonth: {
-                type: "string",
-                description: "工资条月份,格式:YYYY-MM, 例如2025-03",
-            },
-            billSource: {
-                type: "string",
-                description: "工资条来源 1-excel导入",
-                enum: ["1"],
-            },
-            salaryGroupId: {
-                type: "string",
-                description: "工资条id",
-            },
-            cacheKey: {
-                type: "string",
-                description: "工资条缓存key, 发送全部工资条的时候, 传此参数, 参数来源为querySalaryBillByPage接口返回的cacheKey",
-            },
-            userId: {
-                type: "string",
-                description: "员工id, 发送全部工资条的时候, 无需传此参数",
-            },
-        }, ["billMonth", "salaryGroupId"]),
-    },
-    {
         name: "payslip_upload_bill",
-        description: `上传工资条, 把excel文件的oss地址上传到服务器
+        description: `把excel文件的oss地址上传到服务器
     返回值{
       "result": {
         "billFormId": "工资条id",
@@ -154,9 +122,6 @@ export const MAPS_TOOLS = [
       "success": true
     }
     paySalaryItemIndex是实发工资的列数, 从0开始
-    上传完成后, 需要匹配工资条数据(payslip_match_excel_data)
-    匹配成功后, 需要获取工资条设置(payslip_get_bill_setting), 入参从payslip_match_excel_data取
-    获取工资条设置后, 需要保存工资条(payslip_save_bill),入参从payslip_get_bill_setting取
     `,
         inputSchema: getInputSchema({
             file: {
@@ -265,7 +230,9 @@ export const MAPS_TOOLS = [
     },
     {
         name: "payslip_save_bill",
-        description: `保存工资条`,
+        description: `保存工资条
+    保存工资条需要多一步确认
+    `,
         inputSchema: getInputSchema({
             billFormId: {
                 type: "string",
@@ -526,10 +493,48 @@ export const MAPS_TOOLS = [
         }, ["salaryGroupId", "billMonth"]),
     },
     {
+        name: "payslip_send_bill",
+        description: `发送工资条
+    返回值 { rid: "请求id", success: true }
+    如果success为true, 则表示发送成功
+    发送工资条前需要多一步确认的行为
+    `,
+        inputSchema: getInputSchema({
+            allFlag: {
+                type: "string",
+                description: "是否发送全部工资条 0-否 1-是",
+                enum: [0, 1],
+            },
+            billMonth: {
+                type: "string",
+                description: "工资条月份,格式:YYYY-MM, 例如2025-03",
+            },
+            billSource: {
+                type: "string",
+                description: "工资条来源 0-薪资计算 1-excel导入",
+                enum: ["1"],
+            },
+            salaryGroupId: {
+                type: "string",
+                description: "工资条id",
+            },
+            cacheKey: {
+                type: "string",
+                description: "工资条缓存key, 发送全部工资条的时候, 传此参数, 参数来源为querySalaryBillByPage接口返回的cacheKey",
+            },
+            userId: {
+                type: "string",
+                description: "员工id, 发送全部工资条的时候, 无需传此参数",
+            },
+        }, ["billMonth", "salaryGroupId"]),
+    },
+    {
         name: "payslip_revoke_bill",
         description: `撤回工资条
     返回值 { rid: "请求id", success: true }
-    如果success为true, 则表示撤回成功`,
+    如果success为true, 则表示撤回成功
+    撤回工资条前需要多一步确认的行为
+    `,
         inputSchema: getInputSchema({
             allFlag: {
                 type: "string",
@@ -563,7 +568,9 @@ export const MAPS_TOOLS = [
         name: "payslip_delete_bill",
         description: `删除工资条
     返回值 { rid: "请求id", success: true }
-    如果success为true, 则表示删除成功`,
+    如果success为true, 则表示删除成功
+    撤回工资条前需要多一步确认的行为
+    `,
         inputSchema: getInputSchema({
             billMonth: {
                 type: "string",
