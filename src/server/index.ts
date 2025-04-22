@@ -8,6 +8,24 @@ export const switchApi = async (request: CallToolRequest) => {
   let response;
 
   switch (request.params.name) {
+    case "payslip_get_sheet_name": {
+      const fileResponse = await fetch(params.file as string);
+      const fileBlob = await fileResponse.blob();
+      response = await client.postForm("v1/commonImport/getSheetName", {
+        file: fileBlob,
+      });
+      break;
+    }
+    case "payslip_query_match_type_info": {
+      const fileResponse = await fetch(params.file as string);
+      const fileBlob = await fileResponse.blob();
+      response = await client.postForm(
+        "v1/import/paySlip/queryMatchTypeInfo",
+        { file: fileBlob },
+        { sheetNumber: params.sheetNumber }
+      );
+      break;
+    }
     case "payslip_send_bill": {
       response = await client.post("v2/salaryBill/sendSalaryBill", {
         ...params,
