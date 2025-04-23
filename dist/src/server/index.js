@@ -31,8 +31,8 @@ export const switchApi = async (request) => {
             response = await client.postForm("v1/import/paySlip/parseExcel", {
                 file: fileBlob,
             }, {
-                matchType: "userId",
-                sheetNumber: "undefined",
+                matchType: params.matchType,
+                sheetNumber: params.sheetNumber,
                 baseImportType: "bill",
             });
             break;
@@ -89,6 +89,14 @@ export const switchApi = async (request) => {
             response = await client.post("v1/salaryBill/deleteSalaryBill4Excel", {
                 ...params,
                 billSource: "1",
+            });
+            break;
+        }
+        case "payslip_get_report_data": {
+            response = await client.post("v1/report/getEmp", {
+                ...params,
+                page: 1,
+                pageSize: 10,
             });
             break;
         }

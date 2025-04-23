@@ -114,7 +114,7 @@ export const MAPS_TOOLS: Tool[] = [
         },
         sheetNumber: {
           type: "string",
-          description: "工资条模板所在的sheet页",
+          description: `工资条模板所在的sheet页, 用户确定的sheet页的编号, 从0开始`,
           default: "0",
         },
       },
@@ -141,8 +141,19 @@ export const MAPS_TOOLS: Tool[] = [
           type: "string",
           description: "excel文件的oss地址",
         },
+        matchType: {
+          type: "string",
+          description: `匹配类型, userId-员工id, jobNumber-工号, name-姓名
+          如果payslip_query_match_type_info只返回了一个选项, 则可以直接使用该匹配类型, 否则需要用户选择
+          `,
+          enum: ["userId", "jobNumber", "name"],
+        },
+        sheetNumber: {
+          type: "string",
+          description: `工资条模板所在的sheet页, 用户确定的sheet页的编号, 从0开始`,
+        },
       },
-      ["file"]
+      ["file", "matchType", "sheetNumber"]
     ),
   },
   {
@@ -627,6 +638,123 @@ export const MAPS_TOOLS: Tool[] = [
         },
       },
       ["billMonth", "salaryGroupId"]
+    ),
+  },
+  {
+    name: "payslip_get_report_data",
+    description: `获取工资条汇总数据、员工薪资汇总
+    返回值
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "result": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "姓名": {
+                    "type": "string",
+                    "description": "员工姓名"
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "description": "员工id"
+                  },
+                  "社保合计": {
+                    "type": "number",
+                    "description": "社保合计"
+                  },
+                  "住房公积金": {
+                    "type": "number",
+                    "description": "住房公积金"
+                  },
+                  "个人所得税": {
+                    "type": "number",
+                    "description": "个人所得税"
+                  },
+                  "实发金额": {
+                    "type": "number",
+                    "description": "实发金额"
+                  },
+                  "基本工资": {
+                    "type": "number",
+                    "description": "基本工资"
+                  },
+                  "绩效工资": {
+                    "type": "number"
+                  },
+                  "加班工资": {
+                    "type": "number"
+                  },
+                  "奖金": {
+                    "type": "number"
+                  },
+                  "考勤扣款": {
+                    "type": "number"
+                  },
+                  "其他扣款": {
+                    "type": "number"
+                  },
+                  "养老保险": {
+                    "type": "number"
+                  },
+                  "医疗保险": {
+                    "type": "number"
+                  },
+                  "失业保险": {
+                    "type": "number"
+                  }
+                  // 等等, 实际根据headerList来决定
+                }
+              }
+            },
+            "headerList": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "工资条汇总表头, 例如: 姓名、基本工资、绩效工资、加班工资、奖金、考勤扣款、其他扣款、养老保险、医疗保险、失业保险、住房公积金、个人所得税、实发金额"
+              }
+            },
+            "searchCount": {
+              "type": "string",
+              "description": "查询数量"
+            }
+          }
+        },
+        "rid": {
+          "type": "string",
+          "description": "请求id"
+        },
+        "success": {
+          "type": "boolean",
+          "description": "是否成功"
+        }
+      }
+    }
+    `,
+    inputSchema: getInputSchema(
+      {
+        startBillMonth: {
+          type: "string",
+          description: "开始工资条月份,格式:YYYY-MM, 例如2025-03",
+        },
+        endBillMonth: {
+          type: "string",
+          description: "结束工资条月份,格式:YYYY-MM, 例如2025-04",
+        },
+        searchName: {
+          type: "string",
+          description: "通过员工姓名搜索",
+          default: "",
+        },
+      },
+      ["startBillMonth", "endBillMonth"]
     ),
   },
 ] as const;

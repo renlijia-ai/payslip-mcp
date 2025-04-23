@@ -42,8 +42,8 @@ export const switchApi = async (request: CallToolRequest) => {
           file: fileBlob,
         },
         {
-          matchType: "userId",
-          sheetNumber: "undefined",
+          matchType: params.matchType,
+          sheetNumber: params.sheetNumber,
           baseImportType: "bill",
         }
       );
@@ -104,6 +104,14 @@ export const switchApi = async (request: CallToolRequest) => {
       response = await client.post("v1/salaryBill/deleteSalaryBill4Excel", {
         ...params,
         billSource: "1",
+      });
+      break;
+    }
+    case "payslip_get_report_data": {
+      response = await client.post("v1/report/getEmp", {
+        ...params,
+        page: 1,
+        pageSize: 10,
       });
       break;
     }
