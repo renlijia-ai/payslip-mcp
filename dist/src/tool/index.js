@@ -346,10 +346,10 @@ export const MAPS_TOOLS = [
                 description: "起始id",
                 default: "",
             },
-            searchName:{
-              type: "string",
-              description: "根据工资条名称进行搜索",
-            }
+            searchName: {
+                type: "string",
+                description: "根据工资条名称进行搜索",
+            },
         }, ["billMonth"]),
     },
     {
