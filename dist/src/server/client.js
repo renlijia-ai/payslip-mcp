@@ -1,10 +1,10 @@
-import { rljN_const, apiPerfix } from "../constants/index.js";
+import { rljN_const, apiPerfix, AI_MCP_TOKEN } from "../constants/index.js";
 // 总方法
 export class Client {
     baseUrl = apiPerfix;
     headers;
     constructor(rljN) {
-        this.headers = { "rlj-n": rljN_const || rljN };
+        this.headers = { "rlj-n": rljN_const || rljN, AI_MCP_TOKEN: AI_MCP_TOKEN };
     }
     async get(api, data) {
         const url = new URL(`${this.baseUrl}/${api}`);
