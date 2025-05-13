@@ -1,7 +1,7 @@
-import { rljN_const } from "../constants/index.js";
+import { rljN_const, apiPerfix } from "../constants/index.js";
 // 总方法
 export class Client {
-    baseUrl = "https://daily-payslip.renlijia.com/rest/api";
+    baseUrl = apiPerfix;
     headers;
     constructor(rljN) {
         this.headers = { "rlj-n": rljN_const || rljN };
