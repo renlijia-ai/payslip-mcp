@@ -1,9 +1,13 @@
 import { CallToolRequest } from "@modelcontextprotocol/sdk/types.js";
 import { Client } from "./client.js";
+import { apiPrefixMapping } from "../constants/index.js";
 
 export const switchApi = async (request: CallToolRequest) => {
   const params = { ...request.params.arguments };
-  const client = new Client(params.rljN as string);
+  const client = new Client(
+    params.rljN as string,
+    apiPrefixMapping[params.env as string]
+  );
 
   let response;
 

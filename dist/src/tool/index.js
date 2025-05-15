@@ -1,17 +1,14 @@
-import { rljN_const } from "../constants/index.js";
 const getInputSchema = (properties, required) => {
     return {
         type: "object",
-        properties: rljN_const
-            ? properties
-            : {
-                rljN: {
-                    type: "string",
-                    description: "登录token",
-                },
-                ...properties,
+        properties: {
+            rljN: {
+                type: "string",
+                description: "登录token",
             },
-        required: rljN_const ? required : ["rljN", ...required],
+            ...properties,
+        },
+        required: ["rljN", ...required],
     };
 };
 export const MAPS_TOOLS = [

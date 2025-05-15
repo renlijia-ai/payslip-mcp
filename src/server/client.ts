@@ -1,12 +1,13 @@
-import { rljN_const, apiPerfix, AI_MCP_TOKEN } from "../constants/index.js";
+import { AI_MCP_TOKEN } from "../constants/index.js";
 
 // 总方法
 export class Client {
-  private baseUrl: string = apiPerfix;
+  private baseUrl: string = "";
   private headers: { [key: string]: string };
 
-  constructor(rljN: string) {
-    this.headers = { "rlj-n": rljN_const || rljN, AI_MCP_TOKEN: AI_MCP_TOKEN! };
+  constructor(rljN: string, baseUrl: string) {
+    this.headers = { "rlj-n": rljN, AI_MCP_TOKEN: AI_MCP_TOKEN! };
+    this.baseUrl = baseUrl;
   }
 
   async get(api: string, data: Record<string, any>) {

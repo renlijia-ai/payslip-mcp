@@ -1,5 +1,4 @@
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
-import { rljN_const } from "../constants/index.js";
 
 const getInputSchema = (
   properties: Tool["inputSchema"]["properties"],
@@ -7,16 +6,14 @@ const getInputSchema = (
 ): Tool["inputSchema"] => {
   return {
     type: "object",
-    properties: rljN_const
-      ? properties
-      : {
-          rljN: {
-            type: "string",
-            description: "登录token",
-          },
-          ...properties,
-        },
-    required: rljN_const ? required : ["rljN", ...required],
+    properties: {
+      rljN: {
+        type: "string",
+        description: "登录token",
+      },
+      ...properties,
+    },
+    required: ["rljN", ...required],
   };
 };
 
