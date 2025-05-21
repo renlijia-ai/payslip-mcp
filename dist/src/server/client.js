@@ -34,7 +34,6 @@ export class Client {
                 url.searchParams.append(key, params[key]);
             });
         }
-        console.log(url.toString(), "postUrl");
         // 表单数据
         const formData = new FormData();
         Object.keys(data).forEach((key) => {
