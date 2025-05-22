@@ -44,10 +44,6 @@ export const switchApi = async (request) => {
         }
         case "payslip_get_bill_setting": {
             response = await client.post("v1/salaryBill/queryImportedSalaryBillSetting", { ...params, templateId: "" });
-            if (response.success) {
-                delete response.result.billFormMonth;
-                delete response.result.billFormName;
-            }
             break;
         }
         case "payslip_save_bill": {

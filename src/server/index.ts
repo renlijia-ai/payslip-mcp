@@ -62,10 +62,6 @@ export const switchApi = async (request: CallToolRequest) => {
         "v1/salaryBill/queryImportedSalaryBillSetting",
         { ...params, templateId: "" }
       );
-      if (response.success) {
-        delete response.result.billFormMonth;
-        delete response.result.billFormName;
-      }
       break;
     }
     case "payslip_save_bill": {
