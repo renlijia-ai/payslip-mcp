@@ -1,6 +1,6 @@
 {
-  "name": "@rlj/mcp-server-payslip-web",
-  "version": "0.0.17",
+  "name": "@rlj/payslip-mcp",
+  "version": "0.0.21",
   "description": "MCP server for using the Payslip Web API",
   "license": "MIT",
   "homepage": "",

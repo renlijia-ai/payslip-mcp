@@ -2,18 +2,21 @@ const getInputSchema = (properties, required) => {
     return {
         type: "object",
         properties: {
-            rljN: {
-                type: "string",
-                description: "登录token",
-            },
-            env: {
-                type: "string",
-                description: "环境",
-                enum: ["prod", "pre", "test", "daily"],
-            },
+            // rljN: {
+            //   type: "string",
+            //   description: "登录token",
+            // },
+            // env: {
+            //   type: "string",
+            //   description: "环境",
+            //   enum: ["prod", "pre", "test", "daily"],
+            // },
             ...properties,
         },
-        required: ["rljN", "env", ...required],
+        required: [
+            // "rljN", "env",
+            ...required,
+        ],
     };
 };
 export const MAPS_TOOLS = [

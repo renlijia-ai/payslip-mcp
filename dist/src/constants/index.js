@@ -6,3 +6,4 @@ export const apiPrefixMapping = {
 };
 // export const AI_MCP_TOKEN = process.env.AI_MCP_TOKEN;
 export const AI_MCP_Rlj_N = process.env.AI_MCP_Rlj_N;
+export const ENV = process.env.ENV;
