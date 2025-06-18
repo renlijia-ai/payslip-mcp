@@ -15,3 +15,26 @@ payslip-web 是基于 MCP 协议的 AI 智能体工资条管理工具，作为�
 - **状态跟踪**：实时监控工资条的发送、查看和确认状态
 - **数据汇总分析**：提供跨月度的工资数据汇总和分析功能
 
+##  3.使用和配置
+要使用工具的能力，你需要先成为钉钉智能工资条的用户
+
+在 Cursor 和 Cline中配置
+
+```
+{
+  "mcpServers": {
+    "payslip-web": {
+      "args": [
+        "-y",
+        "@rlj/payslip-mcp@latest"
+      ],
+      "command": "npx",
+      "env": {
+        "ENV": "daily",
+        "AI_MCP_Rlj_N": "eyJraWQiOiIxMmNiNWEzNi1iYzIyLTRmNzItOGNhNC1hMmFmMjZlNjI1MDYiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ7XCJpZFwiOlwic2lkXzQxZThlMzQ1ZDI5OTQ3MjQ5MGExNzg0YjBmZmRiNWUzXCIsXCJzZXNzaW9uQXR0cnNcIjp7XCJfTE9HSU5fVElNRVwiOjE3NTAyMzA5OTk3OTksXCJfTE9HSU5fQ0xJRU5UXCI6XCJPQVwiLFwiSl9HTE9CQUxfVVNFUl9LRVlcIjp7XCJjb3JwSWRcIjpcImRpbmc0YzdjMzExYTcwMTg1MWFjMzVjMmY0NjU3ZWI2Mzc4ZlwiLFwidXNlcklkXCI6XCIyNDIxNDU1MTI1Mjg1MDRcIn0sXCJKX1VTRVJfS0VZXCI6e1wiY29ycElkXCI6XCJkaW5nNGM3YzMxMWE3MDE4NTFhYzM1YzJmNDY1N2ViNjM3OGZcIixcImxvZ2luQXBwXCI6XCJCSUxMXCIsXCJuYW1lXCI6XCLmvZjmjK_otoVcIixcInJvbGVzXCI6W1wiYWRtaW5cIl0sXCJ1c2VySWRcIjpcIjI0MjE0NTUxMjUyODUwNFwifSxcIl9MT0dJTl9BUFBcIjpcIkJJTExcIn0sXCJ0XCI6MTc1MDIzMTAwMTIyMn0ifQ.STrACeZKHtM0qLsEsUS9GTrC0w6DtK6fS4lmfVkV8AFMNuWzQ3zwYVGBjxy-Nw4WQwdZb81w-QWq1ofvx5FFbuGvMnGdiq89tv2DOSQsV4Lb4GPHHXs5aUVqLJNfLqrLAfNRw04Snh0waOWozgNqTJI-_9XHc3C0yOxGWNrc1lLumAOq3dDY09g-pxTBCB1GVrv21Oy3FuaSgHEFBgFfffhtUK6rgccnh8xIiQLk0CY9ROrl1wsH1fH1WsHDhLHoVyp8-oFqFKZPuPnZRawBO9yjfpDrNaktFjs6AbABJHP-gMlaS3LWi0-GPmLN6NJEzHoEaoTmAjVQ6VMS1Qz8Ww"
+      }
+    }
+  }
+}
+
+``` 
