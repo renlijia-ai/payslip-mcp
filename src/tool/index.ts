@@ -2,7 +2,7 @@ import { Tool } from "@modelcontextprotocol/sdk/types.js";
 
 const getInputSchema = (
   properties: Tool["inputSchema"]["properties"],
-  required: string[]
+  required: string[],
 ): Tool["inputSchema"] => {
   return {
     type: "object",
@@ -62,7 +62,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "excel文件的oss地址",
         },
       },
-      ["file"]
+      ["file"],
     ),
   },
   {
@@ -120,7 +120,7 @@ export const MAPS_TOOLS: Tool[] = [
           default: "0",
         },
       },
-      ["file"]
+      ["file"],
     ),
   },
   {
@@ -155,7 +155,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: `工资条模板所在的sheet页, 用户确定的sheet页的编号, 从0开始`,
         },
       },
-      ["file", "matchType", "sheetNumber"]
+      ["file", "matchType", "sheetNumber"],
     ),
   },
   {
@@ -172,7 +172,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "工资条数据中的实发工资列数, 从0开始",
         },
       },
-      ["billFormId", "paySalaryItemIndex"]
+      ["billFormId", "paySalaryItemIndex"],
     ),
   },
   {
@@ -259,7 +259,7 @@ export const MAPS_TOOLS: Tool[] = [
           enum: [""],
         },
       },
-      ["billFormId"]
+      ["billFormId"],
     ),
   },
   {
@@ -301,7 +301,7 @@ export const MAPS_TOOLS: Tool[] = [
         "paySalaryItem",
         "billItemGroups",
         "feedbackUserId",
-      ]
+      ],
     ),
   },
   {
@@ -378,7 +378,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "根据工资条名称进行搜索",
         },
       },
-      ["billMonth"]
+      ["billMonth"],
     ),
   },
   {
@@ -537,7 +537,7 @@ export const MAPS_TOOLS: Tool[] = [
           default: "",
         },
       },
-      ["salaryGroupId", "billMonth"]
+      ["salaryGroupId", "billMonth"],
     ),
   },
   {
@@ -577,7 +577,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "员工id, 发送全部工资条的时候, 无需传此参数",
         },
       },
-      ["billMonth", "salaryGroupId"]
+      ["billMonth", "salaryGroupId"],
     ),
   },
   {
@@ -617,7 +617,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "员工id, 发送全部工资条的时候, 无需传此参数",
         },
       },
-      ["billMonth", "salaryGroupId"]
+      ["billMonth", "salaryGroupId"],
     ),
   },
   {
@@ -643,7 +643,7 @@ export const MAPS_TOOLS: Tool[] = [
           description: "工资条id",
         },
       },
-      ["billMonth", "salaryGroupId"]
+      ["billMonth", "salaryGroupId"],
     ),
   },
   {
@@ -760,7 +760,7 @@ export const MAPS_TOOLS: Tool[] = [
           default: "",
         },
       },
-      ["startBillMonth", "endBillMonth"]
+      ["startBillMonth", "endBillMonth"],
     ),
   },
 ] as const;

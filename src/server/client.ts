@@ -1,4 +1,4 @@
-import { AI_MCP_TOKEN } from "../constants/index.js";
+import { AI_MCP_Rlj_N } from "../constants/index.js";
 
 // 总方法
 export class Client {
@@ -6,7 +6,8 @@ export class Client {
   private headers: { [key: string]: string };
 
   constructor(rljN: string, baseUrl: string) {
-    this.headers = { "rlj-n": rljN, AI_MCP_TOKEN: AI_MCP_TOKEN! };
+    // this.headers = { "rlj-n": rljN, AI_MCP_TOKEN: AI_MCP_TOKEN! };
+    this.headers = { "rlj-n": AI_MCP_Rlj_N! };
     this.baseUrl = baseUrl;
   }
 
@@ -37,7 +38,7 @@ export class Client {
   async postForm(
     api: string,
     data: Record<string, any>,
-    params?: Record<string, any>
+    params?: Record<string, any>,
   ) {
     // url拼接
     const url = new URL(`${this.baseUrl}/${api}`);

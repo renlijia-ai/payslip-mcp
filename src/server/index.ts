@@ -6,7 +6,7 @@ export const switchApi = async (request: CallToolRequest) => {
   const params = { ...request.params.arguments };
   const client = new Client(
     params.rljN as string,
-    apiPrefixMapping[params.env as string]
+    apiPrefixMapping[(params.env || "daily") as string],
   );
 
   let response;
@@ -26,7 +26,7 @@ export const switchApi = async (request: CallToolRequest) => {
       response = await client.postForm(
         "v1/import/paySlip/queryMatchTypeInfo",
         { file: fileBlob },
-        { sheetNumber: params.sheetNumber }
+        { sheetNumber: params.sheetNumber },
       );
       break;
     }
@@ -49,7 +49,7 @@ export const switchApi = async (request: CallToolRequest) => {
           matchType: params.matchType,
           sheetNumber: params.sheetNumber,
           baseImportType: "bill",
-        }
+        },
       );
       break;
     }
@@ -60,7 +60,7 @@ export const switchApi = async (request: CallToolRequest) => {
     case "payslip_get_bill_setting": {
       response = await client.post(
         "v1/salaryBill/queryImportedSalaryBillSetting",
-        { ...params, templateId: "" }
+        { ...params, templateId: "" },
       );
       break;
     }

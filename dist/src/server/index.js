@@ -2,7 +2,7 @@ import { Client } from "./client.js";
 import { apiPrefixMapping } from "../constants/index.js";
 export const switchApi = async (request) => {
     const params = { ...request.params.arguments };
-    const client = new Client(params.rljN, apiPrefixMapping[params.env]);
+    const client = new Client(params.rljN, apiPrefixMapping[(params.env || "daily")]);
     let response;
     switch (request.params.name) {
         case "payslip_get_sheet_name": {
